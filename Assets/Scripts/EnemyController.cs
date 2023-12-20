@@ -1,59 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-
-
-    
 
 public class EnemyMovement : MonoBehaviour
 {
-    
-    public float moveSpeed = 3f; // Adjust the speed as needed
-    public float changeDirectionInterval = 2f; // Time interval to change direction
+    public float speed = 5f; // Adjust the speed as needed
 
-    private void Start()
+    void Update()
     {
-        // Start the coroutine to change direction at intervals
-        StartCoroutine(ChangeDirectionCoroutine());
+        MoveLeft();
     }
 
-    private void Update()
+    void MoveLeft()
     {
-        // Move the enemy in its current direction
-        MoveEnemy();
+        // Move the object to the left based on its current position and speed
+        transform.Translate(Vector2.left * speed * Time.deltaTime);
     }
-
-    private void MoveEnemy()
-    {
-        // Move the enemy based on its current right direction
-        transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
-    }
-
-    private IEnumerator ChangeDirectionCoroutine()
-    {
-        while (true)
-        {
-            // Wait for the specified interval
-            yield return new WaitForSeconds(changeDirectionInterval);
-
-            // Change the direction randomly
-            ChangeDirection();
-        }
-    }
-
-    private void ChangeDirection()
-    {
-        // Randomly choose a new rotation in the Z-axis (2D)
-        float randomRotationZ = Random.Range(0f, 360f);
-
-        transform.rotation = Quaternion.Euler(0f, 0f, randomRotationZ);
-    }
-
-
-
-
 }
-
-
-

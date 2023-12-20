@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class Damageable : MonoBehaviour
 {
     public int maxHealth = 100;
     private int currentHealth;
@@ -13,9 +13,9 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         // Reduce health by the damage amount
-        currentHealth =- damageAmount;
+        currentHealth -= damageAmount;
 
-        // Check if the enemy should be destroyed
+        // Check if the object should be destroyed
         if (currentHealth <= 0)
         {
             Destroy(gameObject);

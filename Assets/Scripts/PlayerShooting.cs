@@ -34,6 +34,9 @@ public class PlayerShooting : MonoBehaviour
                 // Apply force to the bullet in the positive X direction
                 bulletRb.velocity = new Vector2(bulletSpeed, 0f);
 
+                // Attach damage information directly to the bullet
+                bullet.GetComponent<Bullet>().damage = bulletDamage;
+
                 // Destroy the bullet after a specified lifetime
                 Destroy(bullet, bulletLifetime);
             }
@@ -45,27 +48,6 @@ public class PlayerShooting : MonoBehaviour
         else
         {
             Debug.LogError("Shooting point or bullet prefab is not set.");
-        }
-    }
-
-    // This method is called when a collider enters the trigger collider attached to this GameObject
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        // Check if the collided object has the "Enemy" tag
-        if (other.CompareTag("Enemy"))
-        {
-            // Retrieve the EnemyHealth component from the collided object
-            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
-
-            // Check if the enemy has a health component
-            if (enemyHealth != null)
-            {
-                // Apply damage to the enemy
-                enemyHealth.TakeDamage(bulletDamage);
-
-                // Destroy the bullet upon hitting the enemy
-                Destroy(gameObject);
-            }
         }
     }
 }
