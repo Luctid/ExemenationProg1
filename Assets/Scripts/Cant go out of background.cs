@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Cantgooutofbackground : MonoBehaviour
 {
@@ -30,5 +29,12 @@ public class Cantgooutofbackground : MonoBehaviour
         float newY = Mathf.Clamp(transform.position.y, -screenHeight / 2 + playerHalfHeight, screenHeight / 2 - playerHalfHeight);
 
         transform.position = new Vector2(newX, newY);
+
+        // Check if the player hits the left wall
+        if (transform.position.x <= -screenWidth / 2 + playerHalfWidth)
+        {
+            // Player hit the left wall, switch to the "Die" scene
+            SceneManager.LoadScene("Die");
+        }
     }
 }
