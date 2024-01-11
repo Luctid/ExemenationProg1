@@ -3,18 +3,26 @@ using UnityEngine;
 public class EnemyShooting : MonoBehaviour
 {
     [SerializeField]
-    private GameObject bulletPrefab; // Serialized field to allow drag-and-drop in the Inspector
+    private GameObject bulletPrefab;
 
     public Transform bulletSpawnPoint;
-    public float shootInterval = 1f; // Time between shots
+    public float shootInterval = 1f;
     private float timeSinceLastShot = 0f;
+    public float moveSpeed = 2f; // Adjust the move speed as needed
 
     void Update()
     {
         if (!IsInWave())
         {
+            MoveLeft();
             ShootRandomly();
         }
+    }
+
+    void MoveLeft()
+    {
+        // Move the object to the left based on its current position and speed
+        transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
     }
 
     void ShootRandomly()
@@ -23,10 +31,10 @@ public class EnemyShooting : MonoBehaviour
 
         if (timeSinceLastShot >= shootInterval)
         {
-            if (bulletPrefab != null) // Check if bulletPrefab is assigned
+            if (bulletPrefab != null)
             {
                 Shoot();
-                timeSinceLastShot = 0f; // Reset the timer
+                timeSinceLastShot = 0f;
             }
             else
             {
@@ -38,15 +46,11 @@ public class EnemyShooting : MonoBehaviour
     void Shoot()
     {
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-
-        // Get the Rigidbody2D component of the bullet
         Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
 
-        // Check if the Rigidbody2D component exists
         if (bulletRb != null)
         {
-            // Set the initial velocity of the bullet to move to the left
-            float bulletSpeed = 10f; // Adjust the speed as needed
+            float bulletSpeed = 10f;
             bulletRb.velocity = new Vector2(-bulletSpeed, 0f); // Set velocity to move left
         }
         else

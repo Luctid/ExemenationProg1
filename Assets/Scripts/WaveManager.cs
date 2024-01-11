@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour
                 wavesComplete = true;
 
                 // Switch to the "NextLevel" scene once all waves are complete
-                SceneManager.LoadScene("NextLevel");
+                SceneManager.LoadScene("Next Level");
             }
         }
     }
